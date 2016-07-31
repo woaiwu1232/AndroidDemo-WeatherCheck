@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context=".MainActivity"
+    android:background="#FFFFA200"
+    android:focusableInTouchMode="true"
+    android:nestedScrollingEnabled="false"
+    android:clickable="true"
+    android:onClick="onClick">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/searchLayout">
+        <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px"/>
+
+        <!-- :nextFocusUp and :nextFocusLeft have been set to the id of this component
+        to prevent the dummy from receiving focus again -->
+
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:id="@+id/imageButton2"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/position"
+            android:onClick="callPosition" />
+
+        <EditText
+            android:id="@+id/editTextLocation"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:editable="true"
+            android:longClickable="false"
+            android:layout_alignParentTop="true"
+            android:inputType="textFilter"
+            android:background="@drawable/apptheme_edit_text_holo_light"
+            android:textColor="#ffffff"
+            android:layout_toLeftOf="@+id/imageButtonSearch"
+            android:layout_toRightOf="@+id/imageButton2"
+            android:layout_toEndOf="@+id/imageButton2"
+            android:layout_toStartOf="@+id/imageButtonSearch"
+            android:text="Enter a city name" />
+
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:id="@+id/imageButtonSearch"
+            android:background="@drawable/search"
+            android:layout_alignTop="@+id/editTextLocation"
+            android:onClick="clickImageButtonSearch"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentStart="false"
+        android:focusable="true"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
+        android:contextClickable="true"
+        android:id="@+id/contentLayout">
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="0dp"
+            android:id="@+id/ScrollView"
+            android:scrollbarStyle="insideOverlay"
+            android:clickable="true"
+            android:fillViewport="false"
+            android:scrollbars="none">
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:orientation="vertical"
+                android:layout_marginBottom="0dp"
+                android:gravity="top">
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:paddingTop="0dp"
+                    android:layout_gravity="top"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:contextClickable="true">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="300dp"
+                            android:layout_height="50dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:id="@+id/textViewCityName"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="20sp"
+                            android:inputType="textFilter"
+                            android:textAlignment="gravity"
+                            android:gravity="center_vertical|center|center_horizontal"
+                            android:textColor="#ffffff" />
+
+                        <ImageView
+                            android:layout_width="160dp"
+                            android:layout_height="160dp"
+                            android:id="@+id/imageViewToday"
+                            android:layout_gravity="top"
+                            android:layout_alignWithParentIfMissing="false"
+                            android:foregroundGravity="center_vertical|center|center_horizontal"
+                            android:src="@drawable/clear_sky_day"
+                            android:layout_below="@+id/textViewCityName"
+                            android:layout_centerHorizontal="true"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:clickable="true"
+                            android:contextClickable="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="loading..."
+                            android:id="@+id/textViewDescript"
+                            android:textAlignment="center"
+                            android:textColor="#ffffff"
+                            android:textSize="25sp"
+                            android:layout_below="@+id/imageViewToday"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp"
+                            android:inputType="textFilter" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:id="@+id/textViewTemp"
+                            android:textStyle="bold"
+                            android:textSize="60sp"
+                            android:textIsSelectable="false"
+                            android:gravity="center_vertical"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="0"
+                            android:phoneNumber="false"
+                            android:textColor="#ffffff"
+                            android:textAlignment="center"
+                            android:inputType="textFilter"
+                            android:enabled="false"
+                            android:layout_marginTop="0dp"
+                            android:layout_centerInParent="true"
+                            android:singleLine="true" />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:text="°"
+                                android:id="@+id/textView"
+                                android:textSize="60sp"
+                                android:textStyle="bold"
+                                android:textColor="#ffffff"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/textViewTemp"
+                            android:layout_toEndOf="@+id/textViewTemp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:orientation="vertical"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/textView"
+                            android:layout_toEndOf="@+id/textView"
+                            android:layout_marginLeft="20dp">
+
+                                <TextView
+                                    android:layout_width="20dp"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:text="C"
+                                    android:id="@+id/textViewCelsius"
+                                    android:textSize="30sp"
+                                    android:textColor="#ffffff"
+                                    android:onClick="clickTextViewCelsius"
+                                    android:clickable="true"
+                                    android:layout_marginTop="2dp" />
+
+                                <TextView
+                                    android:layout_width="20dp"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:text="F"
+                                    android:id="@+id/textViewFahrenheit"
+                                    android:textSize="30sp"
+                                    android:textColor="#ffffff"
+                                    android:onClick="clickTextViewFahrenheit"
+                                    android:clickable="true" />
+                        </LinearLayout>
+
+
+
+                    </RelativeLayout>
+                    </LinearLayout>
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="180dp">
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="0dp"
+                    android:layout_centerInParent="true">
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="165dp"
+                        android:orientation="vertical"
+                        android:layout_marginTop="0dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Pressure:"
+                            android:id="@+id/textView2"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="0 mb"
+                            android:id="@+id/textViewPressure"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Latitude:"
+                            android:id="@+id/textView4"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="35dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="0°"
+                            android:id="@+id/textViewLatitude"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="165dp"
+                        android:orientation="vertical"
+                        android:layout_marginTop="0dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Humidity:"
+                            android:id="@+id/textView6"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="0%"
+                            android:id="@+id/textViewHumidity"
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Longitude"
+                            android:id="@+id/textView8"
+                            android:layout_marginTop="35dp"
+                            android:layout_gravity="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="0°"
+                            android:id="@+id/textViewLongitude"
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center" />
+                    </LinearLayout>
+                </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+                    <HorizontalScrollView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_centerInParent="true"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_height="250dp"
+                            android:layout_width="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginLeft="0dp">
+
+                            <!-- Day1 -->
+
+                            <LinearLayout
+                                android:layout_height="250dp"
+                                android:layout_width="82.5dp"
+                                android:orientation="vertical"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="0dp">
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="01/01"
+                                    android:textSize="20dp"
+                                    android:layout_gravity="bottom"
+                                    android:inputType="textFilter"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:layout_marginTop="15dp"
+                                    android:id="@+id/textViewDateDay1" />
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:id="@+id/imageViewDay1"
+                                    android:layout_gravity="top|center"
+                                    android:foregroundGravity="center_vertical|center|center_horizontal"
+                                    android:src="@drawable/clear_sky_day"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center"
+                                    android:textAlignment="center"
+                                    android:textColor="#ffffff"
+                                    android:layout_marginTop="10dp"
+                                    android:id="@+id/textViewMaxDay1" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:layout_marginTop="15dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:id="@+id/textViewMinDay1" />
+
+
+
+                            </LinearLayout>
+
+                            <!-- Day2 -->
+                            <LinearLayout
+                                android:layout_height="250dp"
+                                android:layout_width="82.5dp"
+                                android:orientation="vertical"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="0dp">
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="01/02"
+                                    android:textSize="20dp"
+                                    android:layout_gravity="bottom"
+                                    android:inputType="textFilter"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:layout_marginTop="15dp"
+                                    android:id="@+id/textViewDateDay2" />
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:id="@+id/imageViewDay2"
+                                    android:layout_gravity="top|center"
+                                    android:foregroundGravity="center_vertical|center|center_horizontal"
+                                    android:src="@drawable/clear_sky_day"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center"
+                                    android:textAlignment="center"
+                                    android:textColor="#ffffff"
+                                    android:layout_marginTop="10dp"
+                                    android:id="@+id/textViewMaxDay2" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:layout_marginTop="15dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:id="@+id/textViewMinDay2" />
+                            </LinearLayout>
+
+                            <!-- Day3 -->
+                            <LinearLayout
+                                android:layout_height="250dp"
+                                android:layout_width="82.5dp"
+                                android:orientation="vertical"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="0dp">
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="01/03"
+                                    android:textSize="20dp"
+                                    android:layout_gravity="bottom"
+                                    android:inputType="textFilter"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:layout_marginTop="15dp"
+                                    android:id="@+id/textViewDateDay3" />
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:id="@+id/imageViewDay3"
+                                    android:layout_gravity="top|center"
+                                    android:foregroundGravity="center_vertical|center|center_horizontal"
+                                    android:src="@drawable/clear_sky_day"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center"
+                                    android:textAlignment="center"
+                                    android:textColor="#ffffff"
+                                    android:layout_marginTop="10dp"
+                                    android:id="@+id/textViewMaxDay3" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:layout_marginTop="15dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:id="@+id/textViewMinDay3" />
+                            </LinearLayout>
+
+                            <!-- Day4 -->
+                            <LinearLayout
+                                android:layout_height="250dp"
+                                android:layout_width="82.5dp"
+                                android:orientation="vertical"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="0dp">
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="01/04"
+                                    android:textSize="20dp"
+                                    android:layout_gravity="bottom"
+                                    android:inputType="textFilter"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:layout_marginTop="15dp"
+                                    android:id="@+id/textViewDateDay4" />
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:id="@+id/imageViewDay4"
+                                    android:layout_gravity="top|center"
+                                    android:foregroundGravity="center_vertical|center|center_horizontal"
+                                    android:src="@drawable/clear_sky_day"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center"
+                                    android:textAlignment="center"
+                                    android:textColor="#ffffff"
+                                    android:layout_marginTop="10dp"
+                                    android:id="@+id/textViewMaxDay4" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:layout_marginTop="15dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:id="@+id/textViewMinDay4" />
+                            </LinearLayout>
+
+                            <!-- Day5 -->
+                            <LinearLayout
+                                android:layout_height="250dp"
+                                android:layout_width="82.5dp"
+                                android:orientation="vertical"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="0dp">
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="01/05"
+                                    android:textSize="20dp"
+                                    android:layout_gravity="bottom"
+                                    android:inputType="textFilter"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:layout_marginTop="15dp"
+                                    android:id="@+id/textViewDateDay5" />
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:id="@+id/imageViewDay5"
+                                    android:layout_gravity="top|center"
+                                    android:foregroundGravity="center_vertical|center|center_horizontal"
+                                    android:src="@drawable/clear_sky_day"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center"
+                                    android:textAlignment="center"
+                                    android:textColor="#ffffff"
+                                    android:layout_marginTop="10dp"
+                                    android:id="@+id/textViewMaxDay5" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:layout_marginTop="15dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:id="@+id/textViewMinDay5" />
+                            </LinearLayout>
+
+                            <!-- Day5 -->
+                            <LinearLayout
+                                android:layout_height="250dp"
+                                android:layout_width="82.5dp"
+                                android:orientation="vertical"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="0dp">
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="01/06"
+                                    android:textSize="20dp"
+                                    android:layout_gravity="bottom"
+                                    android:inputType="textFilter"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:layout_marginTop="15dp"
+                                    android:id="@+id/textViewDateDay6" />
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:id="@+id/imageViewDay6"
+                                    android:layout_gravity="top|center"
+                                    android:foregroundGravity="center_vertical|center|center_horizontal"
+                                    android:src="@drawable/clear_sky_day"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center"
+                                    android:textAlignment="center"
+                                    android:textColor="#ffffff"
+                                    android:layout_marginTop="10dp"
+                                    android:id="@+id/textViewMaxDay6" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:layout_marginTop="15dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:id="@+id/textViewMinDay6" />
+                            </LinearLayout>
+
+                            <!-- Day5 -->
+                            <LinearLayout
+                                android:layout_height="250dp"
+                                android:layout_width="82.5dp"
+                                android:orientation="vertical"
+                                android:layout_marginTop="0dp"
+                                android:layout_marginLeft="0dp">
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="01/07"
+                                    android:textSize="20dp"
+                                    android:layout_gravity="bottom"
+                                    android:inputType="textFilter"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:layout_marginTop="15dp"
+                                    android:id="@+id/textViewDateDay7" />
+
+                                <ImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:id="@+id/imageViewDay7"
+                                    android:layout_gravity="top|center"
+                                    android:foregroundGravity="center_vertical|center|center_horizontal"
+                                    android:src="@drawable/clear_sky_day"
+                                    android:layout_marginTop="5dp" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center"
+                                    android:textAlignment="center"
+                                    android:textColor="#ffffff"
+                                    android:layout_marginTop="10dp"
+                                    android:id="@+id/textViewMaxDay7" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0°"
+                                    android:textSize="30dp"
+                                    android:layout_marginTop="15dp"
+                                    android:inputType="textFilter"
+                                    android:textStyle="bold"
+                                    android:textColor="#ffffff"
+                                    android:textAlignment="center"
+                                    android:id="@+id/textViewMinDay7" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </HorizontalScrollView>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

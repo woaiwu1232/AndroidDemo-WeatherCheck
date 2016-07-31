@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="chaochenshi.weachercheck" >
+    <supports-screens android:resizeable="true"
+    android:normalScreens="true"
+    android:largeScreens="true"/>
+    <uses-permission  android:name="android.permission.INTERNET"/>
+    <uses-permission  android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission  android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission  android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission  android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/launcher_app"
+        android:label="EasyWeather"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="EasyWeather"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

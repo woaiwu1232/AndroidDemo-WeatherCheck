@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JSONParser</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="location">Location</string>
+    <string name="country">Country:</string>
+    <string name="temperature">Temperature:</string>
+    <string name="humidity">Humidity:</string>
+    <string name="pressure">Pressure:</string>
+    <string name="weather">Weather</string>
+    <string name="description">Weather</string>
+    <string name = "icon">Icon</string>>
+</resources>
